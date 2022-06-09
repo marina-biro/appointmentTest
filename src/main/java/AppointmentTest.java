@@ -1,6 +1,7 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -28,23 +29,33 @@ public class AppointmentTest {
     }
 
     @Test (priority = 1)
-    public void clickMakeAppointmentBtn(){
+    public void logIn(){
         this.loginPage.clickMakeAppointmentBtn();
         this.loginPage.populateLoginForm();
+        Assert.assertTrue(appointmentPage.isFormPresented());
     }
 
     @Test (priority = 2)
-    public void chooseProgram(){
-        this.appointmentPage.chooseProgram("none");
-    }
+    public void makeAnAppointment(){
+        // to try: 2 objects, comparing indexes
+        String someText = "some text";
+        String yesOrNo = "Yes";
+        String date = "01/02/2023";
 
-    @Test(priority = 3)
-    public void hospitalReadmission_YesorNo(){
-        this.appointmentPage.applyForReadmission("yes");
-    }
-
-    @Test(priority = 4)
-    public void chooseFacility(){
+        this.appointmentPage.chooseProgram("none"); // to try: Enum
+        this.appointmentPage.applyForReadmission(yesOrNo);
         this.appointmentPage.chooseFacility(1);
+        this.appointmentPage.enterComment(someText);
+        this.appointmentPage.enterDateOfVisit("01/02/2023");
+        this.appointmentPage.clickConfirm();
+
+        Assert.assertEquals(someText, summaryPage.commentConf());
+        Assert.assertEquals(yesOrNo, summaryPage.readmissionConf());
+        Assert.assertEquals(date, summaryPage.visitDateConf());
     }
+
+
+
+
+
 }

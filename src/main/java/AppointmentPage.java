@@ -12,6 +12,10 @@ public class AppointmentPage extends _BasePage {
         super(driver,driverWait);
     }
 
+
+
+
+
     private By facility = By.id("combo_facility");
     private By hospitalReadmission = By.xpath("//*[@id=\"appointment\"]/div/div/form/div[2]/div/label");
     private By helthcareProgram_Medicare = By.xpath("/html/body/section/div/div/form/div[3]/div/label[1]/input");
@@ -20,28 +24,23 @@ public class AppointmentPage extends _BasePage {
     private By applayForHospReadmission = By.xpath("/html/body/section/div/div/form/div[2]/div/label/input");
     private By helthFacilityDropDown = By.id("combo_facility");
     private By visitDate = By.id("txt_visit_date");
-    private By comment = By.id("txt_comment");
+    private By commentF = By.id("txt_comment");
+    private By confirm = By.id("btn-book-appointment");
 
-    public By getFacility() {
-        return facility;
+
+
+    public void clickConfirm(){
+        explicitDriverWait(10,confirm);
+        WebElement conf = getDriver().findElement(confirm);
+        conf.click();
+
     }
 
-    public By getHospitalReadmission() {
-        return hospitalReadmission;
+    public void enterComment(String yourComment){
+        explicitDriverWait(10,commentF);
+        WebElement comment = getDriver().findElement(commentF);
+        comment.sendKeys(yourComment);
     }
-
-    public By getHelthcareProgram_Medicare() {
-        return helthcareProgram_Medicare;
-    }
-
-    public By getHelthcareProgram_Medicaid() {
-        return helthcareProgram_Medicaid;
-    }
-
-    public By getHelthcareProgram_None() {
-        return helthcareProgram_None;
-    }
-
 
 
     public void enterDateOfVisit(String ddMmYyyy){
@@ -92,6 +91,48 @@ public class AppointmentPage extends _BasePage {
 
     }
 
+    public By getFacility() {
+        return facility;
+    }
 
+    public By getHospitalReadmission() {
+        return hospitalReadmission;
+    }
+
+    public By getHelthcareProgram_Medicare() {
+        return helthcareProgram_Medicare;
+    }
+
+    public By getHelthcareProgram_Medicaid() {
+        return helthcareProgram_Medicaid;
+    }
+
+    public By getHelthcareProgram_None() {
+        return helthcareProgram_None;
+    }
+
+    public By getApplayForHospReadmission() {
+        return applayForHospReadmission;
+    }
+
+    public By getHelthFacilityDropDown() {
+        return helthFacilityDropDown;
+    }
+
+    public By getVisitDate() {
+        return visitDate;
+    }
+
+    public By getCommentF() {
+        return commentF;
+    }
+
+    public By getConfirm() {
+        return confirm;
+    }
+
+    public boolean isFormPresented(){
+      return  getDriver().findElement(hospitalReadmission).isDisplayed();
+    }
 
 }
